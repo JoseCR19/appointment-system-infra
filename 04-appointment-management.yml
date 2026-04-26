@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  api-appointment-management-v1:
+    image: jcar19/api-appointment-management-v1:1.0.1
+    container_name: api-appointment-management-v1
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+
+    environment:
+      # 🔥 APP
+      QUARKUS_HTTP_PORT: 8082
+
+      # 🔥 DB
+      QUARKUS_DATASOURCE_JDBC_URL: jdbc:postgresql://pg-appointments:5432/db_appointment_management
+      QUARKUS_DATASOURCE_USERNAME: postgres
+      QUARKUS_DATASOURCE_PASSWORD: pgpass321
+
+      # 🔥 AUTH MS
+      QUARKUS_REST_CLIENT_AUTH_PROFILE_API_URL: http://api-auth-profile-v1:8081
+
+      # 🔥 KAFKA
+      KAFKA_BOOTSTRAP_SERVERS: kafka-broker-1:9092
+
+      # 🔥 SCHEMA REGISTRY
+      MP_MESSAGING_OUTGOING_APPOINTMENT_EVENTS_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+      MP_MESSAGING_INCOMING_APPOINTMENT_EVENTS_IN_SCHEMA_REGISTRY_URL: http://schema-registry:8081
+
+    networks:
+      - appointment-net
+
+networks:
+  appointment-net:
+    external: true

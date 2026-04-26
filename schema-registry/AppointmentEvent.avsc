@@ -1,0 +1,24 @@
+{
+  "name": "AppointmentEvent",
+  "namespace": "pe.nttdata.apps.appointment.avro",
+  "doc": "Evento generado por la gestión de citas de fisioterapia",
+  "type": "record",
+  "fields": [
+    {
+      "name": "appointmentId",
+      "type": "string"
+    },
+    {
+      "name": "eventType",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "type": "string"
+    },
+    {
+      "name": "occurredAt",
+      "type": "string"
+    }
+  ]
+}

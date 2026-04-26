@@ -1,0 +1,22 @@
+services:
+  pg-appointments:
+    image: bitnami/postgresql:latest
+    container_name: pg-appointments
+    restart: unless-stopped
+    ports:
+      - "15432:5432"
+    environment:
+      POSTGRES_DB: db_appointment_management
+      POSTGRES_PASSWORD: pgpass321
+      TZ: America/Lima
+      PGTZ: America/Lima
+    volumes:
+      - ./postgres-data:/bitnami/postgresql
+      - ./scripts/pg_appointment_init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - default
+
+networks:
+  default:
+    external: true
+    name: appointment-net
